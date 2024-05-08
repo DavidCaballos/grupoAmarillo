@@ -22,11 +22,11 @@ class ProductFactory extends Factory
         return [
             'name' => Str::title($product_name),
             'slug' => $slug,
-            'description' => $this->faker->text(500),
+            'description' => $this->faker->sentence(),
             'price' => $this->faker->numberBetween(1,22),
             'stock_status' => 'instock',
             'quantity' => $this->faker->numberBetween (100,200),
-            'image' => $this->faker->numberBetween (1,24).'.jpg'
+            'image' => $this->faker->numberBetween (1,5).'.jpg'
             
         ];
     }

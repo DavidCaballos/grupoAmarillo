@@ -15,25 +15,22 @@ class ProductController extends Controller
   
     public function productCart()
     {
-        // Obtener los productos del carrito de la sesión, si existen
         $cartProducts = session()->get('cart', []);
 
-        // Puedes obtener los detalles completos de los productos desde tu base de datos
-        // Por ejemplo, si tienes un modelo llamado Product:
         $products = Product::whereIn('id', array_keys($cartProducts))->get();
 
         return view('cart', ['products' => $products]);
     }
 
-    public function addProducttoCart($id)
-    {
+public function addProducttoCart($id)
+{
+    if (auth()->check()) {
         $product = Product::findOrFail($id);
         $cart = session()->get('cart', []);
 
-        // Genera un identificador único para cada producto en el carrito
-        $cartItemId = $id . '-' . time(); // Puedes usar una marca de tiempo como identificador único
+        $cartItemId = $id . '-' . time(); 
 
-        // Agrega un nuevo elemento al carrito
+
         $cart[$cartItemId] = [
             "name" => $product->name,
             "quantity" => 1,
@@ -43,7 +40,11 @@ class ProductController extends Controller
 
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Product has been added to cart');
+    } else {
+
+        return redirect()->route('login')->with('error', 'You need to log in to add products to the cart');
     }
+}
 
     
     public function updateCart(Request $request)

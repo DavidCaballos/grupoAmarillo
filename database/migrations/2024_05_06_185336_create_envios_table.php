@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('address');
             $table->string('country');
-            $table->enum('status', ['sent', 'ready for send', 'received'])->default('pending');
+            $table->enum('status', ['sent', 'ready for send', 'received'])->default('sent');
             $table->timestamps();
-            $table->foreign('order_id')->references ('id')->on('orders')->onDelete('cascade');
+            $table->foreign('order_id')->references ('id')->on('pedidos')->onDelete('cascade');
         });
     }
 
