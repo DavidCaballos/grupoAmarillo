@@ -8,8 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Envio extends Model
 {
     use HasFactory;
-    public function order()
+
+    protected $fillable = [
+        'order_id',
+        'name',
+        'address',
+        'country',
+        'status',
+    ];
+
+    public function pedido()
     {
-        return $this->belongsTo (Envio::class);
+        return $this->belongsTo(Pedido::class, 'order_id');
     }
 }

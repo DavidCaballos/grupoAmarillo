@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('stock_status',["instock","outofstock"]);
             $table->unsignedInteger('quantity')->default(1);
             $table->string('image');
+            $table->string('category');
             $table->timestamps();
         });
     }
